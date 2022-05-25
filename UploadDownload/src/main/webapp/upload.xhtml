@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./plantilla.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+
+
+
+    <ui:define name="content">
+
+
+        <h:body>
+
+            <style>
+                body {background-image:url(./resources/images/fondo.gif)}
+            </style>
+            <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+            <p:growl id="mensaje" showDetail="true"/>
+
+
+            <h:form enctype="multipart/form-data" style="background-color: #ffffff" >
+                <br></br>
+                <center>
+                    <h1 style="color: #000000;font-weight: bold ">Simple</h1>
+                </center>
+                <br></br>
+                <p:fileUpload value="#{imageC.archivo}" mode="simple" required="true" skinSimple="true" label="Subir Archivo"  />
+                <p:commandButton value="Enviar" ajax="false" action="#{imageC.subir()}" update="mensaje" />
+
+                <br></br>
+                <br></br>
+                <br></br>
+            </h:form>
+
+
+            <h:form enctype="multipart/form-data" style="background-color: #ffffff"  >
+                <center>
+                    <h1 style="color: #000000;font-weight: bold ">Multiple</h1>
+                </center>
+                <p:fileUpload value="#{imageC.archivos}" multiple="true" mode="simple" skinSimple="true" label="Subir Archivo"  />
+                <p:commandButton value="Enviar" action="#{imageC.upload()}" ajax="false"/>
+                <br></br>
+                <br></br>
+            </h:form>
+
+
+            <h:form enctype="multipart/form-data" style="background-color: #ffffff" >
+                <br></br>
+                <center>
+                    <h1 style="color: #000000;font-weight: bold ">Simple Auto</h1>
+                </center>
+                <br></br>
+                <p:fileUpload value="#{imageC.archivo}" mode="simple" skinSimple="true" label="Subir Archivo" listener="#{imageC.subir()}"
+                              auto="true" process="@this" update="mensaje"/>
+
+                <br style="background-color: #ffffff" ></br>
+                <br style="background-color: #ffffff"></br>
+                <br style="background-color: #ffffff"></br>
+            </h:form>
+
+
+            <h:form enctype="multipart/form-data" style="background-color: #ffffff" >
+                <br></br>
+                <center>
+                    <h1 style="color: #000000;font-weight: bold ">Multiple Auto</h1>
+                </center>
+                <br></br>
+                <p:fileUpload value="#{imageC.archivos}" mode="simple" skinSimple="true" multiple="true" label="Subir Archivo" listener="#{imageC.upload()}"
+                              auto="true" process="@this" update="mensaje"/>
+
+                <br style="background-color: #ffffff" ></br>
+                <br style="background-color: #ffffff"></br>
+                <br style="background-color: #ffffff"></br>
+            </h:form>
+
+            <h:form enctype="multipart/form-data" style="background-color: #ffffff" >
+                <br></br>
+                <center>
+                    <h1 style="color: #000000;font-weight: bold ">Avanzado</h1>
+                </center>
+                <br></br>
+                <p:fileUpload value="#{imageC.archivo}" mode="advanced" skinSimple="true" label="Subir Archivo" listener="#{imageC.subir()}"
+                              update="mensaje"/>
+
+                <br></br>
+                <br></br>
+                <br></br>
+            </h:form>
+            
+            <h:form enctype="multipart/form-data" style="background-color: #ffffff" >
+                <br></br>
+                <center>
+                    <h1 style="color: #000000;font-weight: bold ">Avanzado Multiple</h1>
+                </center>
+                <br></br>
+                <p:fileUpload value="#{imageC.archivo}" mode="advanced" multiple="true" skinSimple="true" label="Subir Archivo" listener="#{imageC.subir()}"
+                              update="mensaje"/>
+
+                <br></br>
+                <br></br>
+                <br></br>
+            </h:form>
+
+            <!--            <h:panelGroup styleClass="panel panel-default" layout="block">
+                            <h:panelGroup class="panel-heading" layout="block">EJEMPLO</h:panelGroup>
+                            <h:panelGroup styleClass="panel-body" layout="block" id="fileComponent">
+                                <h:panelGroup styleClass="row" layout="block">
+                                    <h:panelGroup styleClass="col-md-12" layout="block">
+                                        <h:panelGroup styleClass="form-group" layout="block">
+                                            <p:commandButton value="Download" 
+                                                             ajax="false" 
+                                                             disabled="false"
+                                                             styleClass="btn btn-primary" 
+                                                             icon="ui-icon-arrowthick-1-s">
+                                                <p:fileDownload value="#{fileDownloadMB.file}" />
+                                            </p:commandButton>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGroup>-->
+        </h:body>
+
+    </ui:define>
+
+</ui:composition>

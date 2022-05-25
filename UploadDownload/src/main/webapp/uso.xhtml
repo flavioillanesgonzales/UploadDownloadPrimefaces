@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./plantilla.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+        <event id="lista" listener="#{imageC.listar()}" type="preRenderView" />
+        <h:body >
+            <style>
+                body {background-image:url(./resources/images/fondo.gif)}
+            </style>
+            <h:form enctype="multipart/form-data"  >
+                <center>
+                    <h1 style="color: #ffffff;font-weight: bold ">Registro de Empleados</h1>
+                </center>
+                <center>
+                    <p:growl id="mensaje" showDetail="true"/>
+                    <p:panelGrid columns="2" style="background-color: transparent"  >
+                        <p:outputLabel value="Nombre" for="idnombre" style="font-weight: bold; color: black"   />
+                        <p:inputText id="idnombre" label="Nombre" value="#{imageC.emp.NOMEMP}" required="true" >
+                            <p:keyFilter regEx="/[A-z,' ']/" />
+                        </p:inputText>
+                        <p:outputLabel value="Apellidos" for="idapellido" style="font-weight: bold; color: black"  />
+                        <p:inputText id="idapellido" value="#{imageC.emp.APEEMP}" required="true">
+                            <p:keyFilter regEx="/[A-z,' ',ñ]/" />
+                        </p:inputText>
+                        <p:outputLabel value="DNI " for="iddni" style="font-weight: bold; color: black"  />
+                        <p:inputText id="iddni" value="#{imageC.emp.DNIEMP}" required="true" maxlength="8">
+                            <p:keyFilter regEx="/[0-9]/" />
+                            <f:validateLength  minimum="8"  maximum="8" />
+                        </p:inputText>
+
+                        <p:outputLabel value="Cargo" style="font-weight: bold; color: black" />
+                        <p:selectOneMenu value="#{imageC.emp.TIPEMP}" id="cargo"  required="true"  >
+                            <f:selectItem itemValue="J" itemLabel="Jefe" />
+                            <f:selectItem itemValue="P" itemLabel="Programador" />
+                            <f:selectItem itemValue="A" itemLabel="Asistente" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Sueldo"  style="font-weight: bold; color: black" />
+                        <p:spinner id="TxtSueldo"  value="#{imageC.emp.SUEEMP}" stepFactor="100.0" min="500"  max="8000.0" required="true" requiredMessage="Ingrese el sueldo" />
+
+                        <p:outputLabel value="Foto"  style="font-weight: bold; color: black" />
+                        <p:fileUpload value="#{imageC.archivo}" mode="simple" required="true" skinSimple="true" />
+                    </p:panelGrid>
+                    <p:commandButton value="Registrar" action="#{imageC.registrar()}" ajax="false"/>
+
+                </center>
+            </h:form>
+            <br/>
+
+            <h:form enctype="multipart/form-data" >
+                <center>
+                    <p:fragment>
+                        <p:inputText value="#{imageC.emp.IDEMP}">
+
+                        </p:inputText>
+                        <p:commandButton value="Descargar" actionListener="#{imageC.decargar()}" ajax="false" update="mensaje" >
+                            <p:fileDownload value="#{imageC.archivoTraido}"/>
+                        </p:commandButton>
+                    </p:fragment>
+
+
+                </center>
+            </h:form>
+
+            <h:form>
+
+                <p:dataTable id="tabla" var="tblempleado" value="#{imageC.listadoEmp}" rows="20">
+                    <f:facet name="header">
+                        <h3 style="color: black; font-weight: bold;text-align: center">Listado de Empleados</h3>
+                    </f:facet>
+                    <p:column headerText="ID">
+                        <h:outputText value="#{tblempleado.IDEMP}" />
+                    </p:column>
+
+                    <p:column headerText="Nombre" >
+                        <h:outputText value="#{tblempleado.NOMEMP}" />
+                    </p:column>
+
+
+                    <p:column headerText="Apellido" >
+                        <h:outputText value="#{tblempleado.APEEMP}" />
+                    </p:column>
+
+                    <p:column headerText="DNI" >
+                        <h:outputText value="#{tblempleado.DNIEMP}" />
+                    </p:column>
+
+                    <p:column headerText="Sueldo" >
+                        <h:outputText value="#{tblempleado.SUEEMP}" />
+                    </p:column>
+
+                    <p:column headerText="Sueldo" >
+                        <h:outputText value="#{tblempleado.SUEEMP}" />
+                    </p:column>
+
+
+                </p:dataTable>
+
+            </h:form>
+
+
+        </h:body>
+    </ui:define>
+
+</ui:composition>
